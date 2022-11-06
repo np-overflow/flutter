@@ -1,9 +1,8 @@
 tasks:
   - init: |
       sudo apt-get update -y && \
-      sudo apt-get install clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev -y & \
-      wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.3.7-stable.tar.xz -P ~/flutter_dev & \
-      wait && \
+      sudo apt-get install clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev -y && \
+      wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.3.7-stable.tar.xz -P ~/flutter_dev && \
       cd ~/flutter_dev && \
       tar xf flutter_linux_3.3.7-stable.tar.xz && \
       echo PATH="$PATH:`pwd`/flutter/bin" >> ~/.bashrc
