@@ -9,6 +9,5 @@ A few resources to get you started if this is your first Flutter project:
 - [online documentation](https://docs.flutter.dev/)
 
 ## GitPod
-> Reference: https://github.com/Gitpod-Samples/template-flutter
-<br>
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/np-overflow/flutter)
+> Reference: https://github.com/Gitpod-Samples/template-flutter <br><br>
+> [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/np-overflow/flutter)
