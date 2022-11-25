@@ -7,8 +7,6 @@ import 'dart:math'; // for random number
 TextEditingController answerController = new TextEditingController();
 
 // Variables
-String api_key = ""; // Define API Key
-
 List catBreeds = []; // List of all the cat breeds (in API)
 String answer = ""; // Answer for the quiz (will change randomly)
 String image =
@@ -16,16 +14,18 @@ String image =
 
 void initGame() async {
   // --- Get Cat Breeds ----
-  String breedURL = "https://api.thecatapi.com/v1/breeds";
-  var res = await http.get(Uri.parse(breedURL),
-      headers: {"x-api-key": api_key, "Access-Control-Allow-Origin": "*"});
+  String breedURL = "https://cat-api-lemon.vercel.app/api/breeds";
+  var res = await http.get(Uri.parse(breedURL));
 
   // Convert to JSON
   var data = jsonDecode(res.body);
 
-  // Add cat breeds to list
-  for (var breed in data) {
-    catBreeds.add(breed["id"]);
+  // Check for rate limiting (via statusCode)
+  if (data["statusCode"] == 200) {
+    // Add cat breeds to list
+    for (var breed in data["data"]) {
+      catBreeds.add(breed);
+    }
   }
 
   // On first load, get a new cat :D
@@ -38,16 +38,20 @@ void getCat() async {
   String breed = catBreeds[random];
   // Get Cat Image
   String imageURL =
-      "https://api.thecatapi.com/v1/images/search?breed_ids=$breed";
-  var res = await http.get(Uri.parse(imageURL),
-      headers: {"x-api-key": api_key, "Access-Control-Allow-Origin": "*"});
+      "https://cat-api-lemon.vercel.app/api/breedImage?breed=$breed";
+  var res = await http
+      .get(Uri.parse(imageURL), headers: {"Access-Control-Allow-Origin": "*"});
 
   // Convert response to JSON
   var data = jsonDecode(res.body);
 
-  // Update Image & Answer
-  image = data[0]["url"];
-  answer = data[0]["breeds"][0]["name"];
+  // Check for rate limiting (via statusCode)
+  if (data["statusCode"] == 200) {
+    data = data["data"];
+    // Update Image & Answer
+    image = data[0]["url"];
+    answer = data[0]["breeds"][0]["name"];
+  }
 }
 
 bool checkAnswer() {
