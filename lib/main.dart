@@ -54,12 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // Hint: Replace MaterialPageRoute with PageTransition
   void transitionAnimation() {
     Navigator.push(
-        context,
-        PageTransition(
-            child: const SecondPage(),
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeOut,
-            type: PageTransitionType.rotate));
+        context, MaterialPageRoute(builder: (context) => const SecondPage()));
   }
 
   @override
