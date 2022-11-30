@@ -7,7 +7,28 @@ class SecondPage extends StatefulWidget {
   State<SecondPage> createState() => _SecondPageState();
 }
 
-class _SecondPageState extends State<SecondPage> {
+class _SecondPageState extends State<SecondPage>
+    with SingleTickerProviderStateMixin {
+  // TODO: Create Animation Controller
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    );
+    controller.repeat();
+    super.initState();
+  }
+
+  // TODO: Create Dispose Method
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,6 +52,14 @@ class _SecondPageState extends State<SecondPage> {
                     scale: 0.5),
               ),
             ),
+            // TODO: Add AnimatedBuilder
+            AnimatedBuilder(
+                animation: controller.view,
+                builder: (context, child) {
+                  return Transform.rotate(
+                      angle: controller.value * 6.3, child: child);
+                },
+                child: const Text("Animated Text Weeee")),
             const Text("Welcome Traveller...", style: TextStyle(fontSize: 30)),
           ],
         ));
