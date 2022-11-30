@@ -37,17 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   double height = 400;
 
   // TODO: Update Container Size when button is pressed
-  void updateContainerSize() {
-    setState(() {
-      if (width != 500) {
-        width = 500;
-        height = 500;
-      } else {
-        width = 400;
-        height = 400;
-      }
-    });
-  }
+  void updateContainerSize() {}
 
   // TODO: Add Transition Animation to next Page
   // Curve: ease out | duration: 0.5 seconds | transition: rotate
@@ -73,9 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: const Text("Animate!", style: TextStyle(fontSize: 30)),
         ),
         // TODO: Change Container to AnimatedContainer & Add Duration & Curve
-        AnimatedContainer(
-            duration: const Duration(seconds: 1),
-            curve: Curves.bounceOut,
+        Container(
             margin: const EdgeInsets.all(10),
             width: width,
             height: height,
