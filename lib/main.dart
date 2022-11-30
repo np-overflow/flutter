@@ -1,10 +1,10 @@
+import 'package:cat_app/second.dart';
 import 'package:flutter/material.dart';
 
-// Import logic dart file
-import 'logic.dart';
+// Plugin Packages
+import 'package:page_transition/page_transition.dart';
 
 void main() {
-  initGame();
   runApp(const MyApp());
 }
 
@@ -32,62 +32,75 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // Container Size
+  double width = 400;
+  double height = 400;
+
+  // TODO: Update Container Size when button is pressed
+  void updateContainerSize() {
+    setState(() {
+      if (width != 500) {
+        width = 500;
+        height = 500;
+      } else {
+        width = 400;
+        height = 400;
+      }
+    });
+  }
+
+  // TODO: Add Transition Animation to next Page
+  // Curve: ease out | duration: 0.5 seconds | transition: rotate
+  // Hint: Replace MaterialPageRoute with PageTransition
+  void transitionAnimation() {
+    Navigator.push(
+        context,
+        PageTransition(
+            child: const SecondPage(),
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeOut,
+            type: PageTransitionType.rotate));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 28, 28, 28),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-              width: double.infinity,
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(20),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(50),
-                  child: Column(children: [
-                    Image(
-                      height: 400,
-                      image: NetworkImage(image),
-                    ),
-                    const Padding(
-                        padding: EdgeInsets.only(top: 30),
-                        child: Text("What cat is this?")),
-                    Container(
-                      margin: const EdgeInsets.only(top: 30),
-                      width: MediaQuery.of(context).size.width * 0.50,
-                      child: Row(children: [
-                        Expanded(
-                            flex: 1,
-                            child: TextField(
-                              controller: answerController,
-                              obscureText: false,
-                              decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: "Your Answer"),
-                            )),
-                        IconButton(
-                            onPressed: (() {
-                              checkAnswer(); // Checks for user's Answer
-                              setState(() {
-                                // Delay 2 second to set state again -- Network Image takes time to load
-                                Future.delayed(const Duration(seconds: 2), () {
-                                  setState(() {});
-                                });
-                              });
-                            }),
-                            icon: const Icon(Icons.check))
-                      ]),
-                    )
-                  ]),
-                ),
-              ))
-        ],
-      ),
-    );
+        body: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+          child: Column(children: [
+        MaterialButton(
+          onPressed: () {
+            updateContainerSize();
+          },
+          color: Colors.grey[200],
+          padding: const EdgeInsets.all(10),
+          child: const Text("Animate!", style: TextStyle(fontSize: 30)),
+        ),
+        // TODO: Change Container to AnimatedContainer & Add Duration & Curve
+        AnimatedContainer(
+            duration: const Duration(seconds: 1),
+            curve: Curves.bounceOut,
+            margin: const EdgeInsets.all(10),
+            width: width,
+            height: height,
+            alignment: Alignment.center,
+            color: Colors.blue[400],
+            child: const Image(
+              image: NetworkImage(
+                  "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Fc2%2F77%2Fb8%2Fc277b80998305d460a8b5b2f692d446b.jpg&f=1&nofb=1&ipt=8a48814587a5fbe528fcae08e56275533b8b33a4a4139db08e9abc18eb7a0e84&ipo=images"),
+              width: 450,
+            )),
+        MaterialButton(
+          onPressed: () {
+            transitionAnimation();
+          },
+          color: Colors.grey[200],
+          padding: const EdgeInsets.all(10),
+          child:
+              const Text("Transition! Woosh!", style: TextStyle(fontSize: 30)),
+        ),
+      ])),
+    ));
   }
 }
