@@ -34,4 +34,8 @@ RUN wget -q "https://storage.googleapis.com/flutter_infra_release/releases/stabl
     && flutter precache && for _plat in web linux-desktop; do flutter config --enable-${_plat}; done \
     && flutter config --android-sdk $ANDROID_HOME \
     && yes | flutter doctor --android-licenses \
-    && flutter doctor
+    && flutter doctor \
+    && curl https://get.volta.sh | bash \
+    && volta install node \
+    && volta install npm \
+    && volta install firebase-tools
