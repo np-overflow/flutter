@@ -37,14 +37,29 @@ class _MyHomePageState extends State<MyHomePage> {
   double height = 400;
 
   // TODO: Update Container Size when button is pressed
-  void updateContainerSize() {}
+  void updateContainerSize() {
+    setState(() {
+      if (width != 500) {
+        width = 500;
+        height = 500;
+      } else {
+        width = 400;
+        height = 400;
+      }
+    });
+  }
 
   // TODO: Add Transition Animation to next Page
   // Curve: ease out | duration: 0.5 seconds | transition: rotate
   // Hint: Replace MaterialPageRoute with PageTransition
   void transitionAnimation() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const SecondPage()));
+        context,
+        PageTransition(
+            child: const SecondPage(),
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeOut,
+            type: PageTransitionType.rotate));
   }
 
   @override
@@ -63,7 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
           child: const Text("Animate!", style: TextStyle(fontSize: 30)),
         ),
         // TODO: Change Container to AnimatedContainer & Add Duration & Curve
-        Container(
+        AnimatedContainer(
+            duration: const Duration(seconds: 1),
+            curve: Curves.bounceOut,
             margin: const EdgeInsets.all(10),
             width: width,
             height: height,
