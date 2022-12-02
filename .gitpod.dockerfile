@@ -38,4 +38,4 @@ RUN wget -q "https://storage.googleapis.com/flutter_infra_release/releases/stabl
     && curl https://get.volta.sh | bash \
     && volta install node \
     && volta install npm \
-    && volta install firebase-tools
+    && ~/.volta/bin/npm i -g firebase-tools
