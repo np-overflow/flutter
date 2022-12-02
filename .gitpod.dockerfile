@@ -36,6 +36,6 @@ RUN wget -q "https://storage.googleapis.com/flutter_infra_release/releases/stabl
     && yes | flutter doctor --android-licenses \
     && flutter doctor \
     && curl https://get.volta.sh | bash \
-    && volta install node \
-    && volta install npm \
+    && ~/.volta/bin/volta install node \
+    && ~/.volta/bin/volta install npm \
     && ~/.volta/bin/npm i -g firebase-tools
